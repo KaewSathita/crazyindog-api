@@ -13,5 +13,16 @@ module.exports = (sequelize, DataTypes) => {
     { underscored: true}
   );
 
+  Categories.associate = db => {
+    Categories.hasMany(db.Reviews, {
+      foreignKey: {
+        name: 'categoryId',
+        allowNull: false
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT'
+    });
+  }
+
   return Categories;
 }
