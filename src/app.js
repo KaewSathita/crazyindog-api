@@ -9,6 +9,11 @@ const morgan = require('morgan');
 
 const notFound = require('./middlewares/notFound');
 const error = require('./middlewares/error');
+const authenticate = require('./middlewares/authenticate')
+
+const authRoute = require('./routes/authRoute');
+
+
 
 const app = express();
 
@@ -20,7 +25,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}))
 
-app.use(notFound) //เอาไว้ handle กับ path ที่ไม่มี
+app.use('/auth', authRoute);
+// app.use('/users', authenticate, userRoute);
+
+app.use(notFound);
 app.use(error);
 
 const port = process.env.PORT || 8000;
