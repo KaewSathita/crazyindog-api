@@ -99,6 +99,7 @@ exports.login = async ( req ,res, next ) => {
       
     const token = genToken({ id: user.id });
       res.status(200).json({token});
+      
     
     } catch (err) {
       next(err);
