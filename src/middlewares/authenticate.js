@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const AppError = require("../utils/appError");
-const { User } = require('../models')
+const { Users } = require('../models')
 
 module.exports = async ( req, res, next ) => {
   try {
@@ -17,11 +17,11 @@ module.exports = async ( req, res, next ) => {
       token, 
       process.env.JWT_SECRET_KEY || 'private_key'
     );
-    const user = await User.findOne({ where: { id:payload.id }, attributes: { exclude: 'password'} });
-    if (!user) {
+    const users = await Users.findOne({ where: { id:payload.id }, attributes: { exclude: 'password'} });
+    if (!users) {
       throw new AppError('unauthenticated', 401)
     }
-    req.user = user;
+    req.user = users;
     next();
   
   } catch (err) {
