@@ -16,7 +16,7 @@ const genToken = payload => jwt.sign(payload, process.env.JWT_SECRET_KEY || 'pri
 exports.register = async ( req, res, next ) => {
   
   try {
-    const { firstName, lastName, motto, petBleed, email, password, confirmPassword, profilepicture } =
+    const { firstName, lastName, penName, petBleed, email, password, confirmPassword, profilepicture } =
       req.body;
 
       if (!email) {
@@ -31,8 +31,8 @@ exports.register = async ( req, res, next ) => {
         throw new AppError('password and confirm password did not match', 400);
       }
 
-      if (typeof motto !== 'string') {
-        throw new AppError ('motto is invalid format', 400); 
+      if (typeof penName !== 'string') {
+        throw new AppError ('penname is invalid format', 400); 
       }
 
       const isEmail = validator.isEmail(email+ '');
@@ -57,7 +57,7 @@ exports.register = async ( req, res, next ) => {
       const user = await Users.create({
         firstName,
         lastName,
-        motto,
+        penName,
         petBleed,
         email: isEmail ? email : null,
         password: hashedPassword,
