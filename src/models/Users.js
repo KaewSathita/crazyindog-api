@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true
         }
       },
-      petBleed: {
+      petBreed: {
         type: DataTypes.STRING
       },
       email: {
