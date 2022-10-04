@@ -16,7 +16,7 @@ const genToken = payload => jwt.sign(payload, process.env.JWT_SECRET_KEY || 'pri
 exports.register = async ( req, res, next ) => {
   
   try {
-    const { firstName, lastName, motto, petBleed, email, password, confirmPassword, profilepicture } =
+    const { firstName, lastName, penName, petBreed, email, password, confirmPassword, profilepicture } =
       req.body;
 
       if (!email) {
@@ -31,8 +31,8 @@ exports.register = async ( req, res, next ) => {
         throw new AppError('password and confirm password did not match', 400);
       }
 
-      if (typeof motto !== 'string') {
-        throw new AppError ('motto is invalid format', 400); 
+      if (typeof penName !== 'string') {
+        throw new AppError ('penname is invalid format', 400); 
       }
 
       const isEmail = validator.isEmail(email+ '');
@@ -57,8 +57,8 @@ exports.register = async ( req, res, next ) => {
       const user = await Users.create({
         firstName,
         lastName,
-        motto,
-        petBleed,
+        penName,
+        petBreed,
         email: isEmail ? email : null,
         password: hashedPassword,
       });
@@ -109,3 +109,33 @@ exports.login = async ( req ,res, next ) => {
     exports.getMe = ( req, res) => {
       res.status(200).json({user: req.user})
     }
+
+
+exports.updateMe = async (req, res, next) => {
+
+  try {
+    const { firstName, lastName, penName, petBreed, email } = req.body;
+    
+      if (!email) {
+        throw new AppError('email is required', 400);
+      }
+      
+      if (typeof penName !== 'string') {
+        throw new AppError ('penname is invalid format', 400); 
+      }
+
+      const user = await Users.findByPk(req.user.id)
+        user.firstName = firstName
+        user.lastName = lastName
+        user.penName = penName
+        user.petBreed = petBreed
+        user.save()
+
+        
+        res.status(200).json({user: user});
+  }   catch (err) {
+        console.log(err)
+        next (err);
+      }
+}
+

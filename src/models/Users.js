@@ -16,14 +16,14 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true
         }
       },
-      motto: {
+      penName: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           notEmpty: true
         }
       },
-      petBleed: {
+      petBreed: {
         type: DataTypes.STRING
       },
       email: {
