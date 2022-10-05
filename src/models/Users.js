@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       penName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        type: DataTypes.STRING
+        // allowNull: false,
+        // validate: {
+        //   notEmpty: true
+        // }
       },
       petBreed: {
         type: DataTypes.STRING
