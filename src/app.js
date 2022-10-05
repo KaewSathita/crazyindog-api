@@ -12,6 +12,7 @@ const error = require('./middlewares/error');
 const authenticate = require('./middlewares/authenticate')
 
 const authRoute = require('./routes/authRoute');
+const userRoute = require('./routes/userRoute');
 
 
 
@@ -26,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false}))
 
 app.use('/auth', authRoute);
-// app.use('/users', authenticate, userRoute);
+app.use('/users', authenticate, userRoute);
 
 app.use(notFound);
 app.use(error);
