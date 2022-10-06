@@ -55,18 +55,17 @@ exports.register = async (req, res, next) => {
       throw new AppError("email address is invalid format", 400);
     }
 
-    // if (req.files.profilepicture) {
-    //   const profilepicture = req.user.profilepicture;
 
-    //   const secureUrl = await cloudinary.upload(
-    //     req.files.profilepicture[0].path,
-    //     profilepicture ? cloudinary.getPublicId(profilepicture) : undefined
-    //   );
+    const isUserExisted = await Users.findOne({
+      where: {
+        email: email
+      }
+    });
 
-    //   updateValue.profilepicture = secureUrl;
-    //   fs.unlinkSync(req.files.profilepicture[0].path);
-    // }
-
+    if (isUserExisted) {
+      throw new AppError("email address is already existed", 400);
+    }
+ 
     const hashedPassword = await bcrypt.hash(password, 12);
     const user = await Users.create({
       firstName,
