@@ -147,3 +147,6 @@ exports.updateMe = async (req, res, next) => {
     next(err);
   }
 };
+
+
+// getUser>>> สำหรับเรียกดูโปรไฟล์ของคนอื่น ผ่าน id
