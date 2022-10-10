@@ -137,7 +137,7 @@ exports.updateReview = async (req, res, next) => {
     }
 
     let review = await Reviews.findByPk(id);
-    review.update(data);
+    await review.update(data);
 
     review = await Reviews.findOne({
       where: {
